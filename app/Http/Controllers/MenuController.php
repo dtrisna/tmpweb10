@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\MenuKopi;
+use Illuminate\Support\Facades\Auth;
 
 
 class MenuController extends Controller
@@ -17,15 +18,15 @@ public function index() {
 
 public function store(Request $request)
 {
-
+    if (Auth::user()->role !== 'karyawan') {
+        abort(403, 'Akses hanya untuk karyawan.');
+    }
     $request->validate([
         'nama' => 'required|string|max:100',
         'harga' => 'required|integer|min:0',
         'kategori' => 'nullable|string|max:50',
         'tersedia' => 'required|boolean',
     ]);
-
-
     MenuKopi::create([
         'nama' => $request->nama,
         'kategori' => $request->kategori,
@@ -39,6 +40,9 @@ public function store(Request $request)
 
     public function create()
 {
+    if (Auth::user()->role !== 'karyawan') {
+        abort(403, 'Akses hanya untuk karyawan.');
+    }
     return view('menu.create');
 }
 
@@ -51,6 +55,9 @@ public function store(Request $request)
 
     public function edit($id)
 {
+    if (Auth::user()->role !== 'karyawan') {
+        abort(403, 'Akses hanya untuk karyawan.');
+    }
     $menu = MenuKopi::findOrFail($id);
     return view('menu.edit', compact('menu'));
 }
@@ -59,6 +66,10 @@ public function store(Request $request)
 
     public function update(Request $request, $id)
 {
+    if (Auth::user()->role !== 'karyawan') {
+        abort(403, 'Akses hanya untuk karyawan.');
+    }
+
     $request->validate([
         'nama' => 'required|string|max:100',
         'harga' => 'required|integer|min:0',
@@ -81,6 +92,9 @@ public function store(Request $request)
 
     public function destroy($id)
 {
+    if (Auth::user()->role !== 'karyawan') {
+        abort(403, 'Akses hanya untuk karyawan.');
+    }
     $menu = MenuKopi::findOrFail($id);
     $menu->delete();
 

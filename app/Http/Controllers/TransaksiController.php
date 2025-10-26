@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Transaksi;
 use App\Models\MenuKopi;
+use Illuminate\Support\Facades\Auth;
 
 
 class TransaksiController extends Controller
@@ -12,6 +13,10 @@ class TransaksiController extends Controller
 
     public function index()
     {
+        if (Auth::user()->role !== 'karyawan') {
+        abort(403, 'Akses hanya untuk karyawan.');
+        }
+
         $transaksi = Transaksi::with('menu')->latest()->get();
         return view('transaksi.index', compact('transaksi'));
     }
@@ -25,6 +30,10 @@ class TransaksiController extends Controller
 
     public function store(Request $request)
     {
+         if (Auth::user()->role !== 'customer') {
+        abort(403, 'Akses hanya untuk customer.');
+        }
+
         $request->validate([
         'menu_id' => 'required|exists:menu_kopi,id',
         'nama_pemesan' => 'required|string|max:100',

@@ -2,10 +2,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-
 
 
 class LoginController extends Controller
@@ -22,25 +21,38 @@ class LoginController extends Controller
             'password' => 'required|string',
             'nohp' => 'required|string',
         ]);
-         $user = User::where('nohp', $request->nohp)->first();
+        $credentials = $request->only('nohp', 'password');
 
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            return redirect()->route('login.form')->with('error', 'Login gagal! Periksa kembali data Anda.');
+            if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            $role = Auth::user()->role;
+
+            if ($role === 'customer') {
+                return redirect()->route('menu.index');
+            } elseif ($role === 'karyawan') {
+                return redirect()->route('transaksi.index'); 
+            }
+            return redirect()->intended('/home');
         }
 
-        session([
-            'login' => true,
-            'user_id' => $user->id,
-            'name' => $user->name,
+            return back()->withErrors([
+            'nohp' => 'Login gagal. Cek nomor HP dan password.',
         ]);
-
-        return redirect()->route('home');
     }
 
     public function home()
     {
-        if (!session('login')) {
-            return redirect()->route('login.form')->with('error', 'Silakan login terlebih dahulu.');
+        $user = Auth::user();
+
+        if ($user->role === 'customer') {
+            $menu = MenuKopi::all();
+            return view('home', compact('menu'));
+        }
+
+        if ($user->role === 'karyawan') {
+            $menu = MenuKopi::all();
+            $transaksi = Transaksi::with('menu')->latest()->get();
+            return view('home', compact('menu', 'transaksi'));
         }
 
         return view('home');
@@ -48,12 +60,9 @@ class LoginController extends Controller
 
     public function logout()
     {
-        session()->forget(['login', 'user_id', 'name']);
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
         return redirect()->route('login.form');
-    }
-
-    public function username()
-    {
-        return 'nohp';
     }
 }

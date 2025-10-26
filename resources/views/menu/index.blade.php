@@ -10,11 +10,15 @@
     <td>{{ $item->harga }}</td>
     <td>{{ $item->kategori }}</td>
     <td>
-      <a href="{{ route('menu.edit', $item->id) }}">Edit</a>
-      <form method="POST" action="{{ route('menu.destroy', $item->id) }}">
-        @csrf @method('DELETE')
-        <button type="submit" onclick="return confirm('Yakin mau hapus menu ini?')">Hapus</button>
-      </form>
+      @if(Auth::user()->role === 'karyawan')
+        <a href="{{ route('menu.edit', $item->id) }}">Edit</a>
+        <form method="POST" action="{{ route('menu.destroy', $item->id) }}" style="display:inline;">
+          @csrf @method('DELETE')
+          <button type="submit" onclick="return confirm('Yakin mau hapus menu ini?')">Hapus</button>
+        </form>
+      @else
+        <span style="color: gray;">-</span>
+      @endif
     </td>
   </tr>
   @endforeach

@@ -8,17 +8,18 @@
 <body>
   <h1>Login ke Website Kopi Kenongo</h1>
 
-  @if(session('error'))
-    <div class="alert alert-danger mt-2">
-        {{ session('error') }}
-    </div>
-  @endif
+  @if ($errors->any())
+        <div style="color: red;">
+            {{ $errors->first() }}
+        </div>
+    @endif
 
   <form method="POST" action="{{ route('login.process') }}">
     @csrf
-    <input type="text" name="nama" placeholder="Nama" required>
-    <input type="text" name="nohp" placeholder="Nomor HP" required>
-    <input type="password" name="password" placeholder="Password" required>
+    <input type="text" name="nama" placeholder="Nama" required><br><br>
+    <input type="text" name="nohp" placeholder="Nomor HP" required><br><br>
+    <input type="password" name="password" placeholder="Password" required><br><br>
+    
     <button type="submit">Login</button>
 </form>
 </body>
