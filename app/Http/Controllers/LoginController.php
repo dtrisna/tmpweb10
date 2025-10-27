@@ -21,21 +21,21 @@ class LoginController extends Controller
             'password' => 'required|string',
             'nohp' => 'required|string',
         ]);
-        $credentials = $request->only('nohp', 'password');
+        $credentials = $request->only('name','nohp', 'password');
 
-            if (Auth::attempt($credentials)) {
+          if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             $role = Auth::user()->role;
 
             if ($role === 'customer') {
-                return redirect()->route('menu.index');
+                return redirect()->route('keranjang.index')->with('success', 'Login berhasil! Silakan lanjut checkout.');
             } elseif ($role === 'karyawan') {
-                return redirect()->route('transaksi.index'); 
+                return redirect()->route('transaksi.index')->with('success', 'Login sebagai karyawan.');
             }
-            return redirect()->intended('/home');
+             return redirect('/home');
         }
 
-            return back()->withErrors([
+        return back()->withErrors([
             'nohp' => 'Login gagal. Cek nomor HP dan password.',
         ]);
     }

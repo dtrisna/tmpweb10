@@ -1,25 +1,25 @@
-<link rel="stylesheet" href="{{ asset('css/style.css') }}">
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu Kopi</title>
+    @vite('resources/css/app.css') <!-- Tailwind aktif -->
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="max-w-6xl mx-auto py-10 px-4">
+        <h1 class="text-3xl font-bold text-center mb-8">☕ Menu Kopi</h1>
 
-<h2>Daftar Menu Kopi</h2>
-<a href="{{ route('menu.create') }}">Tambah Menu</a>
-<table>
-  <tr><th>Nama</th><th>Harga</th><th>Kategori</th><th>Aksi</th></tr>
-  @foreach($menu as $item)
-  <tr>
-    <td>{{ $item->nama }}</td>
-    <td>{{ $item->harga }}</td>
-    <td>{{ $item->kategori }}</td>
-    <td>
-      @if(Auth::user()->role === 'karyawan')
-        <a href="{{ route('menu.edit', $item->id) }}">Edit</a>
-        <form method="POST" action="{{ route('menu.destroy', $item->id) }}" style="display:inline;">
-          @csrf @method('DELETE')
-          <button type="submit" onclick="return confirm('Yakin mau hapus menu ini?')">Hapus</button>
-        </form>
-      @else
-        <span style="color: gray;">-</span>
-      @endif
-    </td>
-  </tr>
-  @endforeach
-</table>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            @foreach($kopiList as $kopi)
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="p-4">
+                    <h2 class="text-xl font-semibold">{{ $kopi->nama }}</h2>
+                    <p class="text-sm text-gray-600 mt-1">Kategori: {{ $kopi->kategori }}</p>
+                    <p class="text-lg font-bold text-amber-700 mt-2">Rp{{ number_format($kopi->harga) }}</p>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</body>
+</html>
