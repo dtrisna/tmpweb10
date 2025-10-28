@@ -31,6 +31,7 @@ Route::delete('/menu/{id}', [MenuController::class, 'destroy'])->name('menu.dest
 Route::resource('transaksi', TransaksiController::class);
 Route::get('transaksi/create', [TransaksiController::class, 'create'])->name('transaksi.create');
 
+Route::post('/accept-cookie', [HomeController::class, 'acceptCookie'])->name('cookie.accept');
 
 
 
