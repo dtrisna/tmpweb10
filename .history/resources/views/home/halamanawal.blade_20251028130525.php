@@ -61,9 +61,9 @@
             @endphp
             <div class="bg-white rounded-lg shadow-md overflow-hidden transition hover:shadow-lg">
                 @if(file_exists($pathGambar))
-                    <img src="{{ asset('storage/uploads/' . $namaFile) }}" alt="{{ $kopi->nama }}" class="w-full h-80 object-cover rounded-t">
+                    <img src="{{ asset('storage/uploads/' . $namaFile) }}" alt="{{ $kopi->nama }}" class="w-full h-48 object-cover rounded-t">
                 @else
-                    <div class="w-full h-48 bg-gray-200 flex items-center justify-center text-gray-500 text-sm">
+                    <div class="w- h-48 bg-gray-200 flex items-center justify-center text-gray-500 text-sm">
                         Tidak ada gambar
                     </div>
                 @endif

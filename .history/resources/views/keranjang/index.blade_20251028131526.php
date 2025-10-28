@@ -16,10 +16,11 @@
         @endif
 
         @if(empty($keranjang))
+
             <p class="text-center text-gray-500 mb-4">Keranjang kamu kosong.</p>
 
     <div class="text-center">
-        <a href="{{ route('home.public') }}" class="inline-block bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 transition">
+        <a href="{{ route('keranjang.index') }}" class="inline-block bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 transition">
             ← Kembali ke Keranjang
         </a>
     </div>

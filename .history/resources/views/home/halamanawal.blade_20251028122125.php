@@ -6,9 +6,8 @@
     @vite('resources/css/app.css')
 </head>
 <body class="bg-gray-100 text-gray-800">
-
-    <!-- 🍪 Cookie Banner -->
-    @if($showCookieBanner)
+  
+        @if($showCookieBanner)
     <div class="bg-yellow-100 border border-yellow-400 text-yellow-800 px-4 py-3 rounded relative max-w-6xl mx-auto mt-6">
         <p class="mb-2">🍪 Website ini menggunakan cookie untuk meningkatkan pengalaman Anda. Dengan melanjutkan, Anda menyetujui penggunaan cookie.</p>
         <form method="POST" action="{{ route('cookie.accept') }}">
@@ -20,12 +19,11 @@
     </div>
     @endif
 
+
     <!-- ✅ Navbar -->
     <nav class="bg-white shadow-md">
         <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <span class="text-xl font-bold text-amber-700">Kopi Kenongo</span>
-            </div>
+            <div class="text-xl font-bold text-amber-700">Kopi Kenongo</div>
             <div class="space-x-4">
                 <a href="{{ route('home.public') }}" class="text-gray-700 hover:text-amber-600">Home</a>
                 <a href="{{ route('menu.index') }}" class="text-gray-700 hover:text-amber-600">Menu</a>
@@ -55,18 +53,8 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             @foreach($kopiList as $kopi)
-            @php
-                $namaFile = strtolower($kopi->nama) . '.jpg';
-                $pathGambar = public_path('storage/uploads/' . $namaFile);
-            @endphp
-            <div class="bg-white rounded-lg shadow-md overflow-hidden transition hover:shadow-lg">
-                @if(file_exists($pathGambar))
-                    <img src="{{ asset('storage/uploads/' . $namaFile) }}" alt="{{ $kopi->nama }}" class="w-full h-80 object-cover rounded-t">
-                @else
-                    <div class="w-full h-48 bg-gray-200 flex items-center justify-center text-gray-500 text-sm">
-                        Tidak ada gambar
-                    </div>
-                @endif
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <img src="{{ $kopi->gambar }}" alt="{{ $kopi->nama }}" class="w-full h-48 object-cover">
                 <div class="p-4">
                     <h2 class="text-xl font-semibold">{{ $kopi->nama }}</h2>
                     <p class="text-sm text-gray-600 mt-1">{{ $kopi->deskripsi }}</p>

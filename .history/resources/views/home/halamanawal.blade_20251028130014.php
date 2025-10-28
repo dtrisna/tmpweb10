@@ -24,6 +24,7 @@
     <nav class="bg-white shadow-md">
         <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center gap-3">
+                <img src="{{ asset('images/logo.png') }}" alt="Logo Kopi Kenongo" class="h-10 w-auto">
                 <span class="text-xl font-bold text-amber-700">Kopi Kenongo</span>
             </div>
             <div class="space-x-4">
@@ -55,13 +56,10 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             @foreach($kopiList as $kopi)
-            @php
-                $namaFile = strtolower($kopi->nama) . '.jpg';
-                $pathGambar = public_path('storage/uploads/' . $namaFile);
-            @endphp
             <div class="bg-white rounded-lg shadow-md overflow-hidden transition hover:shadow-lg">
-                @if(file_exists($pathGambar))
-                    <img src="{{ asset('storage/uploads/' . $namaFile) }}" alt="{{ $kopi->nama }}" class="w-full h-80 object-cover rounded-t">
+                @if($kopi->gambar)
+                    <img src="{{ asset('storage/uploads/' . $kopi->gambar) }}" alt="{{ $kopi->nama }}" class="w-full h-48 object-cover rounded-t">
+
                 @else
                     <div class="w-full h-48 bg-gray-200 flex items-center justify-center text-gray-500 text-sm">
                         Tidak ada gambar
