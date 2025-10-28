@@ -3,7 +3,7 @@
 
 <h2>Daftar Transaksi</h2>
 
-<a href="{{ route('menu.index') }}" class="btn btn-primary mb-3">
+<a href="{{ route('menu') }}" class="btn btn-primary mb-3">
     Kelola Menu
 </a>
 

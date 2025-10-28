@@ -2,11 +2,6 @@
 
 
 <h2>Daftar Transaksi</h2>
-
-<a href="{{ route('menu.index') }}" class="btn btn-primary mb-3">
-    Kelola Menu
-</a>
-
 <table>
   <tr><th>Menu</th><th>Nama Pemesan</th><th>No HP</th><th>Tanggal</th><th>Waktu</th></tr>
   @foreach($transaksi as $trx)

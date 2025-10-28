@@ -5,7 +5,6 @@ namespace App\Http\Controllers\keranjang;
 use App\Http\Controllers\Controller;
 use App\Models\MenuKopi;
 use Illuminate\Http\Request;
-use App\Models\Transaksi;
 
 class KeranjangController extends Controller
 {

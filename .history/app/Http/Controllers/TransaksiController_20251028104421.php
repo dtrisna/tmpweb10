@@ -40,7 +40,7 @@ class TransaksiController extends Controller
     return view('transaksi.konfirmasi', compact('user', 'tanggal_pesan', 'waktu_pesan', 'keranjang'));
     }
 
-
+    
     public function store(Request $request)
 {
     $user = Auth::user();
@@ -61,7 +61,7 @@ class TransaksiController extends Controller
 
     session()->forget('keranjang');
 
-    return redirect()->route('home.public')->with('success', 'Pesanan berhasil dikirim!');
+    return redirect()->route('transaksi.selesai')->with('success', 'Pesanan berhasil dikirim!');
 }
 
 

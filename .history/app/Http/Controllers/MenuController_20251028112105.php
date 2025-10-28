@@ -90,15 +90,6 @@ public function store(Request $request)
 
 
 
-    public function destroy($id)
-{
-    if (Auth::user()->role !== 'karyawan') {
-        abort(403, 'Akses hanya untuk karyawan.');
-    }
-    $menu = MenuKopi::findOrFail($id);
-    $menu->delete();
-
-    return redirect()->route('menu.index')->with('success', 'Menu berhasil dihapus!');
-}
+c
 
 }

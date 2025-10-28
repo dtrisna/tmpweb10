@@ -5,8 +5,6 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Transaksi;
-use App\Models\MenuKopi;
 
 
 class LoginController extends Controller
@@ -30,7 +28,7 @@ class LoginController extends Controller
             $role = Auth::user()->role;
 
             if ($role === 'customer') {
-                return redirect()->route('home.public')->with('success', 'Login berhasil! Silakan lanjut checkout.');
+                return redirect()->route('home.index')->with('success', 'Login berhasil! Silakan lanjut checkout.');
             } elseif ($role === 'karyawan') {
                 return redirect()->route('transaksi.index')->with('success', 'Login sebagai karyawan.');
             }
@@ -64,11 +62,11 @@ class LoginController extends Controller
     return view('home');
 }
 
-    public function logout(Request $request)
+    public function logout()
     {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect()->route('login.form');
     }
-}   
+}

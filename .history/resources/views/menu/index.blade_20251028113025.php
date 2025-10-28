@@ -11,9 +11,6 @@
 
         <!-- Tombol Tambah Menu & Logout -->
         <div class="flex justify-end items-center gap-4 mb-6">
-            <a href="{{ route('menu.create') }}" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded shadow-sm">
-                + Tambah Menu
-            </a>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded shadow-sm">
@@ -21,6 +18,9 @@
                 </button>
             </form>
 
+            <a href="{{ route('menu.create') }}" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded shadow-sm">
+                + Tambah Menu
+            </a>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">

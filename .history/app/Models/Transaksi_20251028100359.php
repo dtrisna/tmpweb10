@@ -10,16 +10,12 @@ class Transaksi extends Model
     protected $table = 'transaksi';
 
     protected $fillable = [
-    'user_id',
-    'nama_pemesan',
-    'nohp_pemesan',
-    'menu_id',
-    'jumlah',
-    'harga',
-    'tanggal_pesan',
-    'waktu_pesan',
-];
-
+        'menu_id',
+        'nama_pemesan',
+        'nohp_pemesan',
+        'tanggal_pesan',
+        'waktu_pesan',
+    ];
 
     public function menu()
     {

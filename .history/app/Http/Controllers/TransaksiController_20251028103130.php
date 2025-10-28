@@ -40,7 +40,6 @@ class TransaksiController extends Controller
     return view('transaksi.konfirmasi', compact('user', 'tanggal_pesan', 'waktu_pesan', 'keranjang'));
     }
 
-
     public function store(Request $request)
 {
     $user = Auth::user();
@@ -48,20 +47,18 @@ class TransaksiController extends Controller
 
     foreach ($keranjang as $item) {
         Transaksi::create([
-    'user_id' => $user->id,
-    'nama_pemesan' => $user->name,
-    'nohp_pemesan' => $user->nohp,
-    'menu_id' => $item['id'],
-    'jumlah' => $item['jumlah'],
-    'harga' => $item['harga'],
-    'tanggal_pesan' => $request->tanggal_pesan,
-    'waktu_pesan' => $request->waktu_pesan,
-]);
+            'user_id' => $user->id,
+            'menu_id' => $item['id'],
+            'jumlah' => $item['jumlah'],
+            'harga' => $item['harga'],
+            'tanggal_pesan' => $request->tanggal_pesan,
+            'waktu_pesan' => $request->waktu_pesan,
+        ]);
     }
 
     session()->forget('keranjang');
 
-    return redirect()->route('home.public')->with('success', 'Pesanan berhasil dikirim!');
+    return redirect()->route('transaksi.selesai')->with('success', 'Pesanan berhasil dikirim!');
 }
 
 

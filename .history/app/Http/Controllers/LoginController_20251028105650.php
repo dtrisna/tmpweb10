@@ -64,11 +64,11 @@ class LoginController extends Controller
     return view('home');
 }
 
-    public function logout(Request $request)
+    public function logout()
     {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect()->route('login.form');
     }
-}   
+}

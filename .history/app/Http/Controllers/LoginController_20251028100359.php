@@ -5,8 +5,6 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Transaksi;
-use App\Models\MenuKopi;
 
 
 class LoginController extends Controller
@@ -30,7 +28,7 @@ class LoginController extends Controller
             $role = Auth::user()->role;
 
             if ($role === 'customer') {
-                return redirect()->route('home.public')->with('success', 'Login berhasil! Silakan lanjut checkout.');
+                return redirect()->route('keranjang.index')->with('success', 'Login berhasil! Silakan lanjut checkout.');
             } elseif ($role === 'karyawan') {
                 return redirect()->route('transaksi.index')->with('success', 'Login sebagai karyawan.');
             }
@@ -43,32 +41,28 @@ class LoginController extends Controller
     }
 
     public function home()
-{
-    $user = Auth::user();
+    {
+        $user = Auth::user();
 
-    if (!$user) {
-        return redirect()->route('login.form')->withErrors(['auth' => 'Silakan login terlebih dahulu.']);
+        if ($user->role === 'customer') {
+            $menu = MenuKopi::all();
+            return view('home', compact('menu'));
+        }
+
+        if ($user->role === 'karyawan') {
+            $menu = MenuKopi::all();
+            $transaksi = Transaksi::with('menu')->latest()->get();
+            return view('home', compact('menu', 'transaksi'));
+        }
+
+        return view('home');
     }
 
-    if ($user->role === 'customer') {
-        $menu = MenuKopi::all();
-        return view('home', compact('menu'));
-    }
-
-    if ($user->role === 'karyawan') {
-        $menu = MenuKopi::all();
-        $transaksi = Transaksi::with('menu')->latest()->get();
-        return view('home', compact('menu', 'transaksi'));
-    }
-
-    return view('home');
-}
-
-    public function logout(Request $request)
+    public function logout()
     {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect()->route('login.form');
     }
-}   
+}

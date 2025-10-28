@@ -5,13 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\MenuKopi;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Transaksi;
+
 
 class MenuController extends Controller
 {
 
 public function index() {
-    $menu = MenuKopi::with('transaksi')->get();
+    $menu = MenuKopi::with('transaksi')->get(); 
     return view('menu.index', compact('menu'));
 }
 

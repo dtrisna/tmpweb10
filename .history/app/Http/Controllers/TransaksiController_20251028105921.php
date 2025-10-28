@@ -61,7 +61,7 @@ class TransaksiController extends Controller
 
     session()->forget('keranjang');
 
-    return redirect()->route('home.public')->with('success', 'Pesanan berhasil dikirim!');
+    return redirect()->route('keranjang')->with('success', 'Pesanan berhasil dikirim!');
 }
 
 

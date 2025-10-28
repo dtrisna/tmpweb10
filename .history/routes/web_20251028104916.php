@@ -20,7 +20,7 @@ Route::get('/home', [LoginController::class, 'home'])->middleware('auth')->name(
 
 // Menu & Transaksi (akses bebas)
 Route::get('/menu', [MenuController::class, 'index'])->name('menu.index');
-Route::get('/menu/create', [MenuController::class, 'create'])->name('menu.create');
+// Route::get('/menu/create', [MenuController::class, 'create'])->name('menu.create');
 Route::get('/checkout', [TransaksiController::class, 'create'])->name('transaksi.create');
 Route::post('/menu', [MenuController::class, 'store'])->name('menu.store');
 Route::get('/menu/{id}', [MenuController::class, 'show'])->name('menu.show');

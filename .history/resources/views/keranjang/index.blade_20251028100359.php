@@ -51,7 +51,7 @@
 
                     @if($role === 'customer')
                         <a href="{{ route('transaksi.create') }}" class="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition">
-                            Konfirmasi Pesanan
+                            Checkout Sekarang
                         </a>
                     @elseif($role === 'karyawan')
                         <a href="{{ route('transaksi.index') }}" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
