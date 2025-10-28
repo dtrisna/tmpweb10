@@ -18,13 +18,12 @@ class HomeController extends Controller
 
         // Cek apakah cookie persetujuan sudah ada
         $showCookieBanner = !$request->hasCookie('cookie_accepted');
-
         return view('home.halamanawal', compact('kopiList', 'showCookieBanner'));
     }
 
     public function acceptCookie()
     {
-        return redirect()->route('home.public')->cookie('cookie_accepted', true, 60 * 24 * 30); // 30 hari
+        return redirect()->route('home.public')->cookie('cookie_accepted', true);
     }
 
 
