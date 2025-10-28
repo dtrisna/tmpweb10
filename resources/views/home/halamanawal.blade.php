@@ -6,6 +6,19 @@
     @vite('resources/css/app.css')
 </head>
 <body class="bg-gray-100 text-gray-800">
+  
+        @if($showCookieBanner)
+    <div class="bg-yellow-100 border border-yellow-400 text-yellow-800 px-4 py-3 rounded relative max-w-6xl mx-auto mt-6">
+        <p class="mb-2">🍪 Website ini menggunakan cookie untuk meningkatkan pengalaman Anda. Dengan melanjutkan, Anda menyetujui penggunaan cookie.</p>
+        <form method="POST" action="{{ route('cookie.accept') }}">
+            @csrf
+            <button type="submit" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition">
+                Saya Setuju
+            </button>
+        </form>
+    </div>
+    @endif
+
 
     <!-- ✅ Navbar -->
     <nav class="bg-white shadow-md">
