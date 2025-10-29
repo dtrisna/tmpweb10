@@ -16,14 +16,25 @@ class HomeController extends Controller
     {
         $kopiList = MenuKopi::all();
 
-        // Cek apakah cookie persetujuan sudah ada
+        $theme = $request->cookie('theme', 'light'); 
         $showCookieBanner = !$request->hasCookie('cookie_accepted');
-        return view('home.halamanawal', compact('kopiList', 'showCookieBanner'));
+
+        return view('home.halamanawal', compact('kopiList', 'showCookieBanner', 'theme'));
     }
+
 
     public function acceptCookie()
     {
-        return redirect()->route('home.public')->cookie('cookie_accepted', true);
+        return redirect()->route('home.public')->cookie('cookie_accepted', true, 60 * 24 * 30);
+    }
+
+
+    public function halamanAwal(Request $request)
+    {
+        $theme = $request->cookie('theme', 'light'); 
+        $showCookieBanner = !$request->hasCookie('cookie_accepted');
+
+        return view('home.halamanawal', compact('theme', 'showCookieBanner'));
     }
 
 

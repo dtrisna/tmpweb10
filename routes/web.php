@@ -7,6 +7,16 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\home\HomeController;
 use App\Http\Controllers\keranjang\KeranjangController;
 
+// tema
+Route::post('/theme/dark', function () {
+    return redirect()->back()->cookie('theme', 'dark', 60 * 24 * 30);
+})->name('set.theme.dark');
+
+Route::post('/theme/light', function () {
+    return redirect()->back()->cookie('theme', 'light', 60 * 24 * 30);
+})->name('set.theme.light');
+
+
 // Halaman publik
 Route::get('/', [HomeController::class, 'index'])->name('home.public');
 
@@ -38,3 +48,4 @@ Route::post('/accept-cookie', [HomeController::class, 'acceptCookie'])->name('co
 Route::post('/keranjang/tambah/{id}', [KeranjangController::class, 'tambah'])->name('keranjang.tambah');
 Route::get('/keranjang', [KeranjangController::class, 'index'])->name('keranjang.index');
 Route::post('/keranjang/hapus/{id}', [KeranjangController::class, 'hapus'])->name('keranjang.hapus');
+

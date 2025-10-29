@@ -11,11 +11,13 @@ class MenuController extends Controller
 {
 
 public function index() {
-    if (Auth::user()->role !== 'karyawan') {
+    if (!Auth::check() || Auth::user()->role != 'karyawan') {
         abort(403, 'Akses hanya untuk karyawan.');
     }
+
     $menu = MenuKopi::with('transaksi')->get();
     return view('menu.index', compact('menu'));
+
 }
 
 
